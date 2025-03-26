@@ -38,6 +38,12 @@ const Navbar = () => {
             >
               Add Faculty
             </a>
+            <a 
+              href="/examManage" 
+              className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+            >
+              Manage Exam
+            </a>
           </div>
         </div>
       </div>
