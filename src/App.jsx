@@ -7,6 +7,8 @@ import AddFac from './AddFac';
 import AttendanceDashboard from './AttendaceDashboard';
 import AttendancePage from './AttendancePage';
 
+import ExamManagement from './ExamManagement';
+
 function App() {
   // const [count, setCount] = useState(0)
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/addFac" element={<AddFac />} />
         <Route path="/attendance" element={<AttendanceDashboard />} />
         <Route path="/attendance/:courseCode" element={<AttendancePage />} />
+        <Route path="/examManage" element={<ExamManagement />} />
       </Routes>
     </div>
   )
