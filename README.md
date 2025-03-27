@@ -1,5 +1,5 @@
 # Glitchcon-CollegeManagement
-=======
+
 # TBG-2 - College Management App-Develop a Smart College Management System
 
 # Repo Link for Backend
