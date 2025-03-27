@@ -27,4 +27,12 @@ This is a Smart College Management System that takes care of managing the studen
 1. Flask
 2. Database - SQLite
 
+# Screenshots:
+
+![Screenshots](Screenshots/1.png)
+![Screenshots](Screenshots/2.png)
+![Screenshots](Screenshots/3.png)
+![Screenshots](Screenshots/4.png)
+![Screenshots](Screenshots/5.png)
+![Screenshots](Screenshots/6.png)
    
