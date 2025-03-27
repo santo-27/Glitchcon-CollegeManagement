@@ -1,16 +1,30 @@
-<<<<<<< HEAD
 # Glitchcon-CollegeManagement
-=======
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# TBG-2 - College Management App-Develop a Smart College Management System
 
-Currently, two official plugins are available:
+# Repo Link for Backend
+https://github.com/Gray-Rice/kalvi-server
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Description
+This is a Smart College Management System that takes care of managing the students and professors of universities.
 
-## Expanding the ESLint configuration
+# Features
+1. Student Enrollment & Record Management: A system for managing student admissions, profiles, and academic history.
+2. Professors can create new exams and schedule them
+3. Examination & Grade Management: Basic module to manage student assessments, exams, and results.
+4. A digital system for students and faculty to record and monitor attendance.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> 0b49c13 (First commit)
+# Bonus Feature
+1. Voice Assistant for Quick Access to Timetable & Events.
+
+# Tech Stack:
+
+## Frontend:
+1. React.js (Vite)
+2. Tailwind css
+
+## Backend:
+1. Flask
+2. Database - SQLite
+
+   

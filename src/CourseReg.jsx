@@ -12,8 +12,6 @@ function CourseReg() {
         { id: 7, name: "Cyber Security" },
         { id: 8, name: "Cloud Computing" },
     ];
-
-
     
     const [selectedCourse, setSelectedCourse] = useState(""); // Only one course can be selected
     const [submitted, setSubmitted] = useState(false);
