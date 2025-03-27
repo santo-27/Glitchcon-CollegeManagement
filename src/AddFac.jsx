@@ -34,7 +34,7 @@ const SAMPLE_PREVIOUS_DATA = [
 ];
 
 // Sample data for dropdowns
-const facultyData = [
+const facultyDataa = [
   { id: 1, name: 'Computer Science' },
   { id: 2, name: 'Electrical Engineering' },
   { id: 3, name: 'Mechanical Engineering' }
@@ -61,7 +61,7 @@ function AddFac() {
   const [previousData, setPreviousData] = useState(SAMPLE_PREVIOUS_DATA);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const [facultyData, setFacultyData] = useState(facultyDataa)
   // Form state
   const [faculty, setFaculty] = useState('');
   const [courses, setCourses] = useState([]);
@@ -77,10 +77,18 @@ function AddFac() {
     setCourseCode(''); // Reset course code
   };
 
+  const getData = async () => {
+    const res = await axios.get("http://127.0.0.1:6001/get/faculty");
+    console.log(res);
+    setPreviousData(res.data.assigned);
+    setFacultyData(res.data.available);
+  }
+  getData();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    
     try {
       // Simulated submission
       const newRegistration = {
@@ -105,6 +113,8 @@ function AddFac() {
       setIsSubmitting(false);
     }
   };
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -167,8 +177,8 @@ function AddFac() {
               >
                 <option value="">Select Faculty</option>
                 {facultyData.map((fac) => (
-                  <option key={fac.id} value={fac.name}>
-                    {fac.name}
+                  <option key={fac.id} value={fac.fullname}>
+                    {fac.fullname}
                   </option>
                 ))}
               </select>

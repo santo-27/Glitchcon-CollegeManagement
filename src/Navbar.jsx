@@ -8,7 +8,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <a href="/" className="text-xl font-bold text-gray-800">
-              YourLogo
+              College Management System
             </a>
           </div>
 
