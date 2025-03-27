@@ -25,24 +25,24 @@ const SAMPLE_STUDENTS = [
 ];
 
 function AttendancePage() {
-  const [students, setStudents] = useState(SAMPLE_STUDENTS);
+  // const [students, setStudents] = useState(SAMPLE_STUDENTS);
+  const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { courseCode } = useParams();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     // Fetch students for the specific course
     const fetchStudents = async () => {
       try {
         // Replace with your actual API endpoint
-        const response = await axios.get(`/api/course/${courseCode}/students`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
+        const response = await axios.get(`http://127.0.0.1:5000/attendance/${courseCode}/students`, {
+          token
         });
 
         // You might want to use actual data from the response instead of sample data
-        // setStudents(response.data);
+        setStudents(response.data);
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch students');
@@ -72,9 +72,10 @@ function AttendancePage() {
           present: student.present
         }))
       }, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+        token:token
+        // headers: {
+        //   'Authorization': `Bearer ${localStorage.getItem('token')}`
+        // }
       });
 
       alert('Attendance submitted successfully!');
