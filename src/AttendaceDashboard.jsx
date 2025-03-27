@@ -34,13 +34,23 @@ const SAMPLE_PROFESSOR_COURSES = [
 ];
 
 function AttendanceDashboard() {
-  const [courses, setCourses] = useState(SAMPLE_PROFESSOR_COURSES);
+  // const [courses, setCourses] = useState(SAMPLE_PROFESSOR_COURSES);
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
   // Handle clicking on a course to view students
   const handleCourseClick = (courseCode) => {
     navigate(`/attendance/${courseCode}`);
   };
+
+  const token = localStorage.getItem("token");
+
+  const getData = async () => {
+    const res = await axios.get("http://127.0.0.1:5000/attendance", {token});
+    setCourses([res.data.attendance])
+  }
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
