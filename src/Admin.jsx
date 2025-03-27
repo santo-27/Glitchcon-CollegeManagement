@@ -5,6 +5,8 @@ const AdminPage = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState("");
     const [role, setRole] = useState("student");
+    const [selectedAnnouncement, setSelectedAnnouncement] = useState("");
+
     const [formData, setFormData] = useState({
         fullname: "",
         dob: "",
@@ -13,9 +15,16 @@ const AdminPage = () => {
         qualification: "",
         semester: "",
     });
-
+    const [announcementData, setAnnouncementData] = useState({
+        event: "",
+        description: ""
+    });
+    
+    const [announcements, setAnnouncements] = useState([]);
+    
     useEffect(() => {
         fetchUsers();
+        fetchAnnouncements();
     }, []);
 
     // Fetch user list from the backend
@@ -39,6 +48,17 @@ const AdminPage = () => {
             setUsers([]);
         }
     };
+    const fetchAnnouncements = async () => {
+        try {
+            const response = await axios.post("http://127.0.0.1:5000/admin/announcements");
+    
+            // Assuming response.data.announcements is an array with objects containing title and body
+            setAnnouncements(response.data.announcements || []);
+        } catch (error) {
+            console.error("Error fetching announcements:", error.response?.data || error.message);
+        }
+    };
+    
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -112,7 +132,34 @@ const AdminPage = () => {
             console.error("Error deleting user:", error.response?.data || error.message);
         }
     };
-
+        // Add new announcement
+        const handleAddAnnouncement = async (e) => {
+            e.preventDefault();
+            try {
+                await axios.post("http://127.0.0.1:5000/add/announcement/");
+    
+                fetchAnnouncements();
+                setAnnouncementData({ event: "", description: "" });
+            } catch (error) {
+                console.error("Error adding announcement:", error.response?.data || error.message);
+            }
+        };
+    
+        // Delete announcement
+        const handleDeleteAnnouncement = async () => {
+            if (!selectedAnnouncement) return;
+            if (!window.confirm("Are you sure you want to delete this announcement?")) return;
+            try {
+                await axios.post("http://127.0.0.1:5000/delete/announcement/", { id: selectedAnnouncement }, {
+                    headers: { "X-API-KEY": localStorage.getItem("token") },
+                });
+    
+                fetchAnnouncements();
+                setSelectedAnnouncement("");
+            } catch (error) {
+                console.error("Error deleting announcement:", error.response?.data || error.message);
+            }
+        };
     return (
         <div className="min-h-screen bg-white text-gray-800 flex flex-col items-center py-10 px-4">
             <h2 className="text-4xl font-extrabold mb-8 text-center text-blue-700">Admin Dashboard</h2>
@@ -187,7 +234,76 @@ const AdminPage = () => {
                     <button onClick={handleDeleteUser} className="w-full mt-4 bg-red-600 text-white py-3 rounded-md hover:bg-red-700">Delete User</button>
                 </div>
             </div>
+{/* Announcements Section */}
+<div className="w-full max-w-4xl bg-white shadow-xl rounded-lg border border-gray-200 mb-8">
+    <div className="bg-green-50 p-4 border-b border-gray-200">
+        <h3 className="text-2xl font-semibold text-green-800">Manage Announcements</h3>
+    </div>
+
+    {/* Add Announcement Form */}
+    <form onSubmit={handleAddAnnouncement} className="p-6 space-y-4">
+        <input 
+            type="text" 
+            name="title" 
+            placeholder="Announcement Title" 
+            required 
+            value={announcementData.title} 
+            onChange={(e) => setAnnouncementData({ ...announcementData, title: e.target.value })} 
+            className="w-full p-3 border border-gray-300 rounded-md" 
+        />
+        <textarea 
+            name="body" 
+            placeholder="Announcement Details" 
+            required 
+            value={announcementData.body} 
+            onChange={(e) => setAnnouncementData({ ...announcementData, body: e.target.value })} 
+            className="w-full p-3 border border-gray-300 rounded-md"
+        />
+        <button type="submit" className="w-full bg-green-600 text-white py-3 rounded-md">Add Announcement</button>
+    </form>
+
+    {/* Announcements List */}
+    <div className="p-6">
+        {announcements.length > 0 ? (
+            <ul className="divide-y divide-gray-200">
+                {announcements.map((announcement, index) => (
+                    <li key={index} className="p-4 hover:bg-green-50">
+                        <h4 className="text-lg font-semibold text-green-800">{announcement.title}</h4>
+                        <p className="text-sm text-gray-600">{announcement.body}</p>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p className="text-center text-gray-500 p-4">No announcements available.</p>
+        )}
+    </div>
+
+    {/* Delete Announcement */}
+    <div className="p-6">
+        <select 
+            value={selectedAnnouncement} 
+            onChange={(e) => setSelectedAnnouncement(e.target.value)} 
+            className="w-full p-3 border border-gray-300 rounded-md"
+        >
+            <option value="">Select announcement to delete</option>
+            {announcements.map((announcement, index) => (
+                <option key={index} value={announcement.title}>{announcement.title}</option>
+            ))}
+        </select>
+        <button 
+            onClick={handleDeleteAnnouncement} 
+            className="w-full mt-4 bg-red-600 text-white py-3 rounded-md hover:bg-red-700"
+        >
+            Delete Announcement
+        </button>
+    </div>
+</div>
+
+            
         </div>
+        
+        
+        
     );
 };
 
