@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Gradepage.css';
+import './GradePage.css';
 
 function GradePage() {
     // const [studentGrades, setStudentGrades] = useState([

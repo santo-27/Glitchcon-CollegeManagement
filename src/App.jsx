@@ -10,6 +10,7 @@ import Login from './Login';
 import ExamManagement from './ExamManagement';
 import { AuthProvider } from "./AuthContext";
 import GradePage from './GradePage';
+import Admin from './Admin';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -38,6 +39,7 @@ function App() {
         <Route path="/attendance/:courseCode" element={<AttendancePage />} />
         <Route path="/examManage" element={<ExamManagement />} />
         <Route path="/gradePage" element={<GradePage />} />
+        <Route path="/manageUsers" element={<Admin />} />
       </Routes>) : (<Login onLogin={setRole} />)}
     </div>
     </Router>
